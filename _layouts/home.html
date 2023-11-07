@@ -1,0 +1,61 @@
+---
+body_class: homepage
+---
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body class="{{ page.body_class }}">
+
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="home">
+        {%- if page.title -%}
+          <h1 class="page-heading">{{ page.title }}</h1>
+        {%- endif -%}
+      
+        {{ content }}
+              
+        <div class="graph" id="graph2">
+          <!-- D3.js code for Graph 2 will go here -->
+        </div>
+      
+          
+      
+        {%- if site.posts.size > 0 -%}
+          <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+          <ul class="post-list">
+            {%- for post in site.posts -%}
+            <li>
+              {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+              <span class="post-meta">{{ post.date | date: date_format }}</span>
+              <h3>
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                  {{ post.title | escape }}
+                </a>
+              </h3>
+              {%- if site.show_excerpts -%}
+                {{ post.excerpt }}
+              {%- endif -%}
+            </li>
+            {%- endfor -%}
+          </ul>
+      
+          <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+        {%- endif -%}
+      </div>
+      
+    </main>
+
+    {%- include footer.html -%}
+    
+<script src="\assets\js\graph.js"></script>
+<script src="\assets\js\zoom.js"></script>
+<script src="\assets\js\data.js"></script>
+<script src="\assets\js\main.js"></script>
+  </body>
+
+</html>
+

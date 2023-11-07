@@ -1,0 +1,37 @@
+
+
+@import "minima";
+.graph {
+    width: 90vw; /* 90% of the viewport width */
+    margin: 0 auto; /* center the graph */
+    min-height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .scroll-prompt {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .scroll-arrow {
+    font-size: 3rem;
+    text-decoration: none;
+  }
+
+  .homepage .wrapper {
+    /* Override or reset the styles here */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* any other styles you want to reset or override */
+}
+  
+svg {
+  max-width: 800px; /* Adjust as needed */
+  max-height: 600px; /* Adjust as needed */
+  margin: auto;
+}
