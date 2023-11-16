@@ -4,10 +4,17 @@ body_class: homepage
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
+
   {%- include head.html -%}
 
   <body class="{{ page.body_class }}">
-
+    <div id="loading-screen">
+      <video autoplay loop muted playsinline id="loading-video">
+        <source src="intro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <img src="svg/Zabauhaus.svg" alt="Logo" id="loading-logo"/>
+  </div>
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content">

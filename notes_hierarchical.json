@@ -1,24 +1,27 @@
 [
   {
+    "title": "Zabauhaus",
     "type": "organization",
     "graph": "Graph 2",
-    "title": "Zabauhaus",
+    "category": "",
     "id": "8c2dfb5f6c",
     "datetimeCreate": "2023-10-21T12:54:36.000Z",
     "datetimeUpdate": "2023-10-21T12:54:48.000Z",
     "subheader": "",
     "parents": "",
-    "category": "",
     "tags": "",
     "portfolioimages": "",
     "function": "",
     "video": "",
+    "visibility": "public",
+    "modified": "2023-11-14T01:41:06.000Z",
+    "projects": "",
     "functions": [
       {
+        "title": "Amusement",
         "type": "function",
         "graph": "Graph 2",
         "category": "Zabauhaus",
-        "title": "Amusement",
         "id": "64578a07b4",
         "datetimeCreate": "2023-10-21T12:32:03.000Z",
         "datetimeUpdate": "2023-10-21T12:34:17.000Z",
@@ -28,29 +31,52 @@
         "portfolioimages": "",
         "function": "Amusement",
         "video": "",
+        "visibility": "public",
+        "modified": "2023-11-13T23:46:11.000Z",
         "projects": [
           {
+            "title": "Boomgrass",
             "type": "project",
             "graph": "Graph 2",
             "category": "Amusement",
-            "subheader": "",
-            "portfolioimages": "",
-            "tags": "",
-            "title": "boomgrass",
             "id": "ce138fe897",
             "datetimeCreate": "2023-10-21T11:28:23.000Z",
             "datetimeUpdate": "2023-10-21T11:28:23.000Z",
+            "subheader": "",
             "parents": "",
+            "tags": "",
+            "portfolioimages": "",
             "function": "Amusement",
-            "video": ""
+            "video": "",
+            "visibility": "public",
+            "modified": "2023-11-14T01:10:34.000Z",
+            "projects": ""
+          },
+          {
+            "title": "Radiant Contours",
+            "type": "project",
+            "graph": "Graph 2",
+            "category": "",
+            "id": "01HF5GF8BJ23STWPCSR68YJ1MV",
+            "datetimeCreate": "",
+            "datetimeUpdate": "",
+            "subheader": "",
+            "parents": "",
+            "tags": "",
+            "portfolioimages": "",
+            "function": "Amusement",
+            "video": "",
+            "visibility": "public",
+            "modified": "2023-11-14T00:52:11.000Z",
+            "projects": ""
           }
         ]
       },
       {
+        "title": "Functional",
         "type": "function",
         "graph": "Graph 2",
         "category": "Zabauhaus",
-        "title": "Pragmatics",
         "id": "585dcd607f",
         "datetimeCreate": "2023-10-21T12:34:43.000Z",
         "datetimeUpdate": "2023-10-21T12:34:50.000Z",
@@ -60,30 +86,34 @@
         "portfolioimages": "",
         "function": "functional",
         "video": "",
+        "visibility": "public",
+        "modified": "2023-11-14T00:50:49.000Z",
         "projects": [
           {
-              "title": "Mother's Day Bench",
-              "id": "777e902847",
-              "datetimeCreate": "",
-              "datetimeUpdate": "",
-              "subheader": "",
-              "type": "project",
-              "graph": "Graph 2",
-              "tags": "",
-              "portfolioimages": "obsidian://open?vault=test&file=BenchArtboard.png",
-              "category": "",
-              "video": "",
-              "function": "functional"
-            }
-         
-          
+            "title": "Mother's Day Bench",
+            "type": "project",
+            "graph": "Graph 2",
+            "category": "Zabauhaus",
+            "id": "01HF5SRAW2XJW7MK4MX4H3S48A",
+            "datetimeCreate": "",
+            "datetimeUpdate": "",
+            "subheader": "",
+            "parents": "",
+            "tags": "",
+            "portfolioimages": "",
+            "function": "functional",
+            "video": "",
+            "visibility": "public",
+            "modified": "2023-11-14T02:24:37.000Z",
+            "projects": ""
+          }
         ]
       },
       {
+        "title": "Research",
         "type": "function",
         "graph": "Graph 2",
         "category": "Zabauhaus",
-        "title": "Research",
         "id": "58343256cc",
         "datetimeCreate": "2023-10-21T12:35:06.000Z",
         "datetimeUpdate": "2023-10-21T12:35:11.000Z",
@@ -93,23 +123,29 @@
         "portfolioimages": "",
         "function": "research",
         "video": "",
-        "projects": [{
+        "visibility": "public",
+        "modified": "2023-11-14T00:50:32.000Z",
+        "projects": [
+          {
             "title": "Collusion Archive",
+            "type": "project",
+            "graph": "Graph 2",
+            "category": "",
             "id": "3a6e7a3e06",
             "datetimeCreate": "",
             "datetimeUpdate": "",
             "subheader": "",
-            "type": "project",
-            "graph": "Graph 2",
-            "category": "",
+            "parents": "",
             "tags": "",
             "portfolioimages": "",
             "function": "research",
-            "video": ""
-          }]
+            "video": "",
+            "visibility": "public",
+            "modified": "",
+            "projects": ""
+          }
+        ]
       }
-      
-          
-      ]
+    ]
   }
 ]

@@ -1,0 +1,43 @@
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: background color */
+  }
+  
+  #loading-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%; /* 2x bigger */
+    height: auto;
+    object-fit: contain; /* Maintain aspect ratio */
+  }
+  
+  #loading-logo {
+    width: 60%; /* Adjust size as needed */
+    object-fit: contain; /* Maintain aspect ratio */
+    position: relative;
+    z-index: 2; /* Ensures logo is above the video */
+  }
+  
+  @keyframes slideUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+#loading-screen.slide-up {
+    animation: slideUp 0.5s forwards;
+}

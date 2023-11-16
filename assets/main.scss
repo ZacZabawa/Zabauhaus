@@ -1,37 +1,17 @@
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$base-font-size:   16px !default;
+$base-font-weight: 400 !default;
+$small-font-size:  $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
 
+$spacing-unit:     30px !default;
 
-@import "minima";
-.graph {
-    width: 90vw; /* 90% of the viewport width */
-    margin: 0 auto; /* center the graph */
-    min-height: 100vh; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .scroll-prompt {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .scroll-arrow {
-    font-size: 3rem;
-    text-decoration: none;
-  }
+$text-color:       #111 !default;
+$background-color: #c9cbca !default;
+$brand-color:      #2a7ae2 !default;
 
-  .homepage .wrapper {
-    /* Override or reset the styles here */
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    /* any other styles you want to reset or override */
-}
-  
-svg {
-  max-width: 800px; /* Adjust as needed */
-  max-height: 600px; /* Adjust as needed */
-  margin: auto;
-}
+$grey-color:       #828282 !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
+$grey-color-dark:  darken($grey-color, 25%) !default;
+
+$table-text-align: left !default;

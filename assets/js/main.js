@@ -5,6 +5,17 @@ document.querySelectorAll('.scroll-arrow').forEach(arrow => {
         target.scrollIntoView({ behavior: 'smooth' });
     });
 });
+
+
+setTimeout(function() {
+    document.getElementById('loading-screen').classList.add('slide-up');
+}, 3000); // Adjust the time as needed
+
+document.getElementById('loading-screen').addEventListener('animationend', function() {
+    this.style.display = 'none';
+});
+
+
 function wrapText(text, width) {
     text.each(function() {
         var text = d3.select(this),
@@ -31,26 +42,19 @@ function wrapText(text, width) {
 
 // Define delays for each type
 const typeDelays = {
-    'organization': 0,
-    'function': 2000, // Delay functions by 500ms
+    'organization': 5000,
+    'function': 7000, // Delay functions by 500ms
     'project': 10000 // Delay projects by 1000ms
 };
 
-// Function to initialize the zoom behavior
-function initializeZoom(svg) {
-    const zoom = d3.zoom()
-      .scaleExtent([1, 8]) // Set the scale extent for zooming
-      .on('zoom', (event) => {
-        svg.selectAll('g').attr('transform', event.transform);
-      });
-  
-    svg.call(zoom);
-  }
+
 
 function renderGraph(graphId, graphData) {
     // Initial setup
     let width = 0.9 * window.innerWidth; // 90% of viewport width
     let height = window.innerHeight * 1; // 30% of viewport height for each graph
+
+   
 
     if (graphId === "graph2") {
         // Extract nodes and links from the hierarchical data
@@ -58,6 +62,68 @@ function renderGraph(graphId, graphData) {
         const links = [];
         const functionRadius = 0.3 * Math.min(width, height);
         const projectRadius = 0.4 * Math.min(width, height);
+
+        // Function to initialize the zoom behavior
+        function initializeZoom(svg) {
+            const zoom = d3.zoom()
+              .scaleExtent([1, 8]) // Set the scale extent for zooming
+              .on('zoom', (event) => {
+                svg.selectAll('g').attr('transform', event.transform);
+              });
+          
+            svg.call(zoom);
+            filterAndZoom(zoom, 'Amusement');  
+          }
+
+        // Create SVG for the graph with zoom functionality
+            const svg = d3.select(`#${graphId}`).append("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .call(d3.zoom().on("zoom", (event) => {
+                svg.attr("transform", event.transform);
+            }))
+            .append("g");
+
+
+
+
+
+
+      
+
+// Function to filter nodes based on category and zoom into them
+function filterAndZoom(category) {
+    // Filter nodes based on category
+    const filteredNodes = nodes.filter(d => d.category === category);
+
+    // Calculate the extents of the filtered nodes
+    const xExtent = d3.extent(filteredNodes, d => d.x);
+    const yExtent = d3.extent(filteredNodes, d => d.y);
+
+    // Calculate the center and zoom scale
+    const xCenter = (xExtent[0] + xExtent[1]) / 2;
+    const yCenter = (yExtent[0] + yExtent[1]) / 2;
+    const zoomScale = .5 // Calculate appropriate zoom scale based on extents
+
+    // Apply zoom and translation
+    svg.transition()
+       .duration(750) // Adjust duration as needed
+       .call(zoom.transform, d3.zoomIdentity.translate(width / 2 - zoomScale * xCenter, height / 2 - zoomScale * yCenter).scale(zoomScale));
+}
+
+// Event listeners for toolbar buttons
+document.getElementById('amusementBtn').addEventListener('click', function() {
+    filterAndZoom('Amusement');
+});
+
+document.getElementById('practicalBtn').addEventListener('click', function() {
+    filterAndZoom('Practical');
+});
+
+document.getElementById('researchBtn').addEventListener('click', function() {
+    filterAndZoom('Research');
+});
+        
 
     function traverse(node, parent = null, index = 0, angleOffset = 0) {
         nodes.push(node);
@@ -83,25 +149,6 @@ function renderGraph(graphId, graphData) {
     }
 }
 
-  // Create SVG for the graph with zoom functionality
-  const svg = d3.select(`#${graphId}`).append("svg")
-  .attr("viewBox", `0 0 ${width} ${height}`)
-  .attr("preserveAspectRatio", "xMidYMid meet")
-  .call(d3.zoom().on("zoom", (event) => {
-      svg.attr("transform", event.transform);
-  }))
-  .append("g");
-
-//    // Initialize the zoom behavior
-//    const zoom = d3.zoom()
-//    .scaleExtent([1, 8])
-//    .on('zoom', (event) => {
-//        svg.attr('transform', event.transform);
-//    });
-
-// // Apply the zoom behavior to the SVG
-// svg.call(zoom);
-
 // Traverse the graph data to populate nodes and links
 graphData.forEach(root => traverse(root));
 
@@ -111,8 +158,8 @@ const simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2))
     .force("function", d3.forceRadial(d => d.type === 'function' ? 300 : 0, width / 2, height / 2).strength(0.8))
-    .force("project", d3.forceRadial(d => d.type === 'project' ? 500 : 0, width / 2, height / 2).strength(0.8))
-    .force("collide", d3.forceCollide().radius(60)); // Add collision force
+    .force("project", d3.forceRadial(d => d.type === 'project' ? 500 : 0, width / 2, height / 2).strength(0.6))
+    .force("collide", d3.forceCollide().radius(50)); // Add collision force
 
 
     
@@ -127,7 +174,7 @@ nodes.forEach(node => {
     }
 });
 
-const buffer = 30; // Adjust the buffer as needed
+const buffer = 20; // Adjust the buffer as needed
 const radius = maxDistance + buffer;
 
 // Add the circle to the SVG
@@ -226,11 +273,11 @@ node.transition()
     }
 
 // Debounced hover function to improve performance
-const debouncedShowChildNodes = debounce(function(event, d) {
-    if (!d3.select(this).classed("clicked") && d.type !== 'organization' && d.type !== 'function') {
-        showChildNodes(d, this);
-    }
-}, 500); // 50 milliseconds debounce time
+// const debouncedShowChildNodes = debounce(function(event, d) {
+//     if (!d3.select(this).classed("clicked") && d.type !== 'organization' && d.type !== 'function') {
+//         showChildNodes(d, this);
+//     }
+// }, 500); // 50 milliseconds debounce time
 
 // Hover/select interaction to display child projects
 node.filter(d => d.type !== 'organization') // Exclude organization nodes
@@ -280,6 +327,8 @@ function showChildNodes(d, nodeElement) {
             .style("font-size", `${svgWidth / 100}px`)
             .text(child.title);
 
+
+            
         childNode.transition()
             .style("opacity", 1);
     });
@@ -316,7 +365,7 @@ var text = node.append("text")
         return d.title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     });
 
-wrapText(text, 60); // Wrap the text if it's wider than 60 pixels
+wrapText(text, 20); // Wrap the text if it's wider than 60 pixels
 
 
 // Define the pattern for each level
@@ -328,7 +377,7 @@ svg.append('defs')
             .attr('width', 1)
             .attr('height', 1)
             .append('image')
-            .attr('xlink:href', d => `${d}.svg`)
+            .attr('xlink:href', d => `svg/${d}.svg`)
             .attr('width', 120)
             .attr('height', 120)
             .attr('x', 0) // Center the image horizontally

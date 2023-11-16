@@ -6,13 +6,31 @@
     "subheader": "",
     "portfolioimages": "",
     "tags": "",
-    "title": "boomgrass",
+    "title": "Boomgrass",
     "id": "ce138fe897",
     "datetimeCreate": "2023-10-21T11:28:23.000Z",
     "datetimeUpdate": "2023-10-21T11:28:23.000Z",
     "parents": "",
     "function": "Amusement",
-    "video": ""
+    "video": "",
+    "visibility": "public",
+    "modified": "2023-11-14T01:10:34.000Z"
+  },
+  {
+    "title": "Radiant Contours",
+    "datetimeCreate": "",
+    "datetimeUpdate": "",
+    "subheader": "",
+    "type": "project",
+    "graph": "Graph 2",
+    "category": "",
+    "tags": "",
+    "portfolioimages": "",
+    "function": "Amusement",
+    "video": "",
+    "visibility": "public",
+    "id": "01HF5GF8BJ23STWPCSR68YJ1MV",
+    "modified": "2023-11-14T00:52:11.000Z"
   },
   {
     "type": "function",
@@ -28,50 +46,25 @@
     "portfolioimages": "",
     "function": "Amusement",
     "video": "",
-    "projects": [
-      {
-        "type": "project",
-        "graph": "Graph 2",
-        "category": "Amusement",
-        "subheader": "",
-        "portfolioimages": "",
-        "tags": "",
-        "title": "boomgrass",
-        "id": "ce138fe897",
-        "datetimeCreate": "2023-10-21T11:28:23.000Z",
-        "datetimeUpdate": "2023-10-21T11:28:23.000Z",
-        "parents": "",
-        "function": "Amusement",
-        "video": ""
-      }
-    ]
-  },
-  {
-    "type": "grandparent",
-    "graph": "Graph 1",
-    "title": "Bau Haus",
-    "id": "98638b2c3b",
-    "datetimeCreate": "2023-10-21T11:24:01.000Z",
-    "datetimeUpdate": "2023-10-21T11:24:01.000Z",
-    "subheader": "",
-    "parents": "",
-    "category": "",
-    "tags": "",
-    "portfolioimages": ""
+    "visibility": "public",
+    "modified": "2023-11-13T23:46:11.000Z"
   },
   {
     "title": "Mother's Day Bench",
-    "id": "777e902847",
     "datetimeCreate": "",
     "datetimeUpdate": "",
     "subheader": "",
+    "category": "Zabauhaus",
+    "tags": "",
+    "portfolioimages": "",
+    "function": "functional",
+    "video": "",
+    "visibility": "public",
     "type": "project",
     "graph": "Graph 2",
-    "tags": "",
-    "portfolioimages": "obsidian://open?vault=test&file=BenchArtboard.png",
-    "category": "",
-    "video": "",
-    "function": "functional"
+    "id": "01HF5SRAW2XJW7MK4MX4H3S48A",
+    "modified": "2023-11-14T02:24:37.000Z",
+    "graph ": "graph 2"
   },
   {
     "type": "function",
@@ -87,7 +80,8 @@
     "portfolioimages": "",
     "function": "functional",
     "video": "",
-    "projects": []
+    "visibility": "public",
+    "modified": "2023-11-14T00:50:49.000Z"
   },
   {
     "title": "Collusion Archive",
@@ -101,7 +95,8 @@
     "tags": "",
     "portfolioimages": "",
     "function": "research",
-    "video": ""
+    "video": "",
+    "visibility": "public"
   },
   {
     "type": "function",
@@ -117,7 +112,8 @@
     "portfolioimages": "",
     "function": "research",
     "video": "",
-    "projects": []
+    "visibility": "public",
+    "modified": "2023-11-14T00:50:32.000Z"
   },
   {
     "type": "organization",
@@ -133,124 +129,7 @@
     "portfolioimages": "",
     "function": "",
     "video": "",
-    "functions": [
-      {
-        "type": "function",
-        "graph": "Graph 2",
-        "category": "Zabauhaus",
-        "title": "Amusement",
-        "id": "64578a07b4",
-        "datetimeCreate": "2023-10-21T12:32:03.000Z",
-        "datetimeUpdate": "2023-10-21T12:34:17.000Z",
-        "subheader": "",
-        "parents": "",
-        "tags": "",
-        "portfolioimages": "",
-        "function": "Amusement",
-        "video": "",
-        "projects": [
-          {
-            "type": "project",
-            "graph": "Graph 2",
-            "category": "Amusement",
-            "subheader": "",
-            "portfolioimages": "",
-            "tags": "",
-            "title": "boomgrass",
-            "id": "ce138fe897",
-            "datetimeCreate": "2023-10-21T11:28:23.000Z",
-            "datetimeUpdate": "2023-10-21T11:28:23.000Z",
-            "parents": "",
-            "function": "Amusement",
-            "video": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "graph": "Graph 2",
-        "category": "Zabauhaus",
-        "title": "Functional",
-        "id": "585dcd607f",
-        "datetimeCreate": "2023-10-21T12:34:43.000Z",
-        "datetimeUpdate": "2023-10-21T12:34:50.000Z",
-        "subheader": "",
-        "parents": "",
-        "tags": "",
-        "portfolioimages": "",
-        "function": "functional",
-        "video": "",
-        "projects": []
-      },
-      {
-        "type": "function",
-        "graph": "Graph 2",
-        "category": "Zabauhaus",
-        "title": "Research",
-        "id": "58343256cc",
-        "datetimeCreate": "2023-10-21T12:35:06.000Z",
-        "datetimeUpdate": "2023-10-21T12:35:11.000Z",
-        "subheader": "",
-        "parents": "",
-        "tags": "",
-        "portfolioimages": "",
-        "function": "research",
-        "video": "",
-        "projects": []
-      },
-      {
-        "type": "function",
-        "title": "functional",
-        "projects": [
-          {
-            "title": "Mother's Day Bench",
-            "id": "777e902847",
-            "datetimeCreate": "",
-            "datetimeUpdate": "",
-            "subheader": "",
-            "type": "project",
-            "graph": "Graph 2",
-            "tags": "",
-            "portfolioimages": "obsidian://open?vault=test&file=BenchArtboard.png",
-            "category": "",
-            "video": "",
-            "function": "functional"
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "title": "research",
-        "projects": [
-          {
-            "title": "Collusion Archive",
-            "id": "3a6e7a3e06",
-            "datetimeCreate": "",
-            "datetimeUpdate": "",
-            "subheader": "",
-            "type": "project",
-            "graph": "Graph 2",
-            "category": "",
-            "tags": "",
-            "portfolioimages": "",
-            "function": "research",
-            "video": ""
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "grandparent",
-    "graph": "Graph 1",
-    "title": "Zabawa",
-    "id": "30df8b0c2e",
-    "datetimeCreate": "2023-10-21T11:24:35.000Z",
-    "datetimeUpdate": "2023-10-21T11:24:35.000Z",
-    "subheader": "",
-    "parents": "",
-    "category": "",
-    "tags": "",
-    "portfolioimages": ""
+    "visibility": "public",
+    "modified": "2023-11-14T01:41:06.000Z"
   }
 ]
