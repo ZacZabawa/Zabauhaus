@@ -1,19 +1,29 @@
-document.querySelectorAll('.scroll-arrow').forEach(arrow => {
-    arrow.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(e.target.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth' });
-    });
+document.querySelector('#graph2 .scroll-down').addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetSection = document.getElementById('post-list-heading'); // Replace 'nextSection' with the ID of the section you want to scroll to
+    targetSection.scrollIntoView({ behavior: 'smooth' });
 });
 
-
 setTimeout(function() {
-    document.getElementById('loading-screen').classList.add('slide-up');
+    hideLoadingScreen();
 }, 3000); // Adjust the time as needed
+
+function hideLoadingScreen() {
+    var loadingScreen = document.getElementById('loading-screen');
+    if (!loadingScreen.classList.contains('slide-up')) {
+        loadingScreen.classList.add('slide-up');
+    }
+}
 
 document.getElementById('loading-screen').addEventListener('animationend', function() {
     this.style.display = 'none';
 });
+
+// Hide loading screen on click
+document.getElementById('loading-screen').addEventListener('click', hideLoadingScreen);
+
+// Hide loading screen on scroll
+window.addEventListener('scroll', hideLoadingScreen, { once: true });
 
 
 function wrapText(text, width) {
@@ -158,7 +168,7 @@ const simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2))
     .force("function", d3.forceRadial(d => d.type === 'function' ? 300 : 0, width / 2, height / 2).strength(0.8))
-    .force("project", d3.forceRadial(d => d.type === 'project' ? 500 : 0, width / 2, height / 2).strength(0.6))
+    .force("project", d3.forceRadial(d => d.type === 'project' ? 500 : 0, width / 2, height / 2).strength(0.5))
     .force("collide", d3.forceCollide().radius(50)); // Add collision force
 
 
@@ -224,14 +234,13 @@ svg.append("text")
     .style("text-anchor", "middle")
     .text("Projects");
 
-// Create links
+// Initially hide links
 const link = svg.append("g")
-            .attr("stroke", "#0c0c0d")
-            .attr("stroke-opacity", 1)
-            .selectAll("line")
-            .data(links)
-            .join("line");
-
+  .attr("stroke", "#0c0c0d")
+  .attr("stroke-opacity", 0) // Set initial opacity to 0 to hide links
+  .selectAll("line")
+  .data(links)
+  .join("line");
 
 const color = d3.scaleOrdinal(d3.schemeCategory10);        
 
@@ -279,16 +288,28 @@ node.transition()
 //     }
 // }, 500); // 50 milliseconds debounce time
 
+// Function to show links connected to a node
+function showLinks(nodeId) {
+    link.style("stroke-opacity", d => (d.source.id === nodeId || d.target.id === nodeId) ? 1 : 0);
+}
+
+// Function to hide all links
+function hideLinks() {
+    link.style("stroke-opacity", 0);
+}
+
 // Hover/select interaction to display child projects
 node.filter(d => d.type !== 'organization') // Exclude organization nodes
 .on("mouseover", function(event, d) {
     if (!d3.select(this).classed("clicked") && d.type !== 'organization') {
         showChildNodes(d, this);
+        showLinks(d.id); // Show links connected to this node
     }
 })
 .on("mouseout", function(event, d) {
     if (!d3.select(this).classed("clicked") && d.type !== 'organization') {
         hideChildNodes();
+        hideLinks(); // Hide all links
     }
 })
 .on("click", function(event, d) {
@@ -305,6 +326,7 @@ node.filter(d => d.type !== 'organization') // Exclude organization nodes
         // Prevent the click from triggering any parent elements
         event.stopPropagation();
     }
+    showLinks(d.id); // Ensure links remain visible when a node is clicked
     });
 
 // Function to show child nodes

@@ -23,8 +23,8 @@
   }
   
   #loading-logo {
-    width: 60%; /* Adjust size as needed */
-    object-fit: contain; /* Maintain aspect ratio */
+    height: 100%; /* Adjust size as needed */
+    object-fit: scale-down; /* Maintain aspect ratio */
     position: relative;
     z-index: 2; /* Ensures logo is above the video */
   }
@@ -40,4 +40,12 @@
 
 #loading-screen.slide-up {
     animation: slideUp 0.5s forwards;
+}
+
+.graph .scroll-down {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Additional styling */
 }

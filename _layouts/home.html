@@ -27,12 +27,14 @@ body_class: homepage
               
         <div class="graph" id="graph2">
           <!-- D3.js code for Graph 2 will go here -->
-        </div>
+          <button class="scroll-down" data-target="post-list-heading">Scroll Down</button>
+      </div>
+      
       
           
       
         {%- if site.posts.size > 0 -%}
-          <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+          <h2 id="post-list-heading" class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
           <ul class="post-list">
             {%- for post in site.posts -%}
             <li>
