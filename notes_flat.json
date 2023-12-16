@@ -14,7 +14,8 @@
     "function": "Amusement",
     "video": "",
     "visibility": "public",
-    "modified": "2023-11-14T01:10:34.000Z"
+    "modified": "2023-11-14T01:10:34.000Z",
+    "url": "/_posts/amusement/boomgrass.html"
   },
   {
     "title": "Radiant Contours",
@@ -30,7 +31,8 @@
     "video": "obsidian://open?vault=test&file=Attachments%2F00008-1.mp4",
     "visibility": "public",
     "id": "01HF5GF8BJ23STWPCSR68YJ1MV",
-    "modified": "2023-11-23T07:50:36.000Z"
+    "modified": "2023-11-23T07:50:36.000Z",
+    "url": "/_posts/amusement/radiant-contours.html"
   },
   {
     "type": "function",
@@ -47,7 +49,8 @@
     "function": "Amusement",
     "video": "",
     "visibility": "public",
-    "modified": "2023-11-13T23:46:11.000Z"
+    "modified": "2023-11-13T23:46:11.000Z",
+    "url": "/_posts/amusement/amusement.html"
   },
   {
     "title": "Mother's Day Bench",
@@ -64,7 +67,8 @@
     "graph": "Graph 2",
     "id": "01HF5SRAW2XJW7MK4MX4H3S48A",
     "modified": "2023-11-14T02:24:37.000Z",
-    "graph ": "graph 2"
+    "graph ": "graph 2",
+    "url": "/_posts/functional/mother-s-day-bench.html"
   },
   {
     "type": "function",
@@ -81,7 +85,8 @@
     "function": "functional",
     "video": "",
     "visibility": "public",
-    "modified": "2023-11-14T00:50:49.000Z"
+    "modified": "2023-11-14T00:50:49.000Z",
+    "url": "/_posts/functional/functional.html"
   },
   {
     "title": "Collusion Archive",
@@ -96,7 +101,8 @@
     "portfolioimages": "",
     "function": "research",
     "video": "",
-    "visibility": "public"
+    "visibility": "public",
+    "url": "/_posts/research/collusion-archive.html"
   },
   {
     "type": "function",
@@ -113,7 +119,8 @@
     "function": "research",
     "video": "",
     "visibility": "public",
-    "modified": "2023-11-14T00:50:32.000Z"
+    "modified": "2023-11-14T00:50:32.000Z",
+    "url": "/_posts/research/research.html"
   },
   {
     "type": "organization",
@@ -130,6 +137,7 @@
     "function": "",
     "video": "",
     "visibility": "public",
-    "modified": "2023-11-14T01:41:06.000Z"
+    "modified": "2023-11-14T01:41:06.000Z",
+    "url": "/_posts/general/zabauhaus.html"
   }
 ]

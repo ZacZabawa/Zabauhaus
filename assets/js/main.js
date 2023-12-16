@@ -60,121 +60,49 @@ window.addEventListener('scroll', hideLoadingScreen, { once: true });
     });
 
 
-
-
-
-
-function renderGraph(graphId, graphData) {
-    console.log("Rendering graph for:", graphId);
-    console.log("Graph data received:", graphData);
-    // Initial setup
-    let width = 0.9 * window.innerWidth; // 90% of viewport width
-    let height = window.innerHeight * 1; // 30% of viewport height for each graph
-
-    console.log("Graph dimensions - Width:", width, "Height:", height);
-
-    if (graphId === "graph2") {
-        // Extract nodes and links from the hierarchical data
-        const nodes = [];
-        const links = [];
+    function renderGraph(graphId, graphData) {
+        console.log("Rendering graph for:", graphId);
+        console.log("Graph data received:", graphData);
+    
+        let width = 0.9 * window.innerWidth;
+        let height = window.innerHeight;
         const functionRadius = 0.3 * Math.min(width, height);
         const projectRadius = 0.4 * Math.min(width, height);
-
-        console.log("Function radius:", functionRadius, "Project radius:", projectRadius);
-
-
-         // Create SVG for the graph with zoom functionality
-         const svg = d3.select(`#${graphId}`).append("svg")
-         .attr("viewBox", `0 0 ${width} ${height}`)
-         .attr("preserveAspectRatio", "xMidYMid meet")
-         .call(d3.zoom().on("zoom", (event) => {
-             svg.attr("transform", event.transform);
-         }))
-         .append("g");
-
-         
-
-
-        // Function to initialize the zoom behavior
-     
-            const zoom = d3.zoom()
-              .scaleExtent([1, 8]) // Set the scale extent for zooming
-              .on('zoom', (event) => {
-                svg.selectAll('g').attr('transform', event.transform);
-              });
-          
-             // Initialize SVG with zoom
-            
-            svg.call(zoom);
-            
-           
-
-            function filterAndZoomToFunction(functionTitle, data) {
-                const relatedProjects = data.flatMap(org => org.functions)
-                    .filter(func => func.function === functionTitle)
-                    .flatMap(func => func.projects);
-            
-                if (relatedProjects.length === 0) {
-                    console.log("No projects found for function:", functionTitle);
-                    return;
-                }
-            
-                const filteredNodes = nodes.filter(node => relatedProjects.includes(node.function));
-            
-                const xExtent = d3.extent(filteredNodes, node => node.x);
-                const yExtent = d3.extent(filteredNodes, node => node.y);
-            
-                if (isNaN(xExtent[0]) || isNaN(yExtent[0])) {
-                    console.error("Invalid node positions for function:", functionTitle);
-                    return;
-                }
-            
-                const xCenter = (xExtent[0] + xExtent[1]) / 2;
-                const yCenter = (yExtent[0] + yExtent[1]) / 2;
-            
-                const zoomScale = calculateZoomScale(xExtent, yExtent);
-            
-                svg.transition()
-                    .duration(750)
-                    .call(zoom.transform, d3.zoomIdentity.translate(width / 2 - zoomScale * xCenter, height / 2 - zoomScale * yCenter).scale(zoomScale));
-            
-                console.log("Zoom scale:", zoomScale, "X center:", xCenter, "Y center:", yCenter);
-            }
-            
-            // Function to calculate zoom scale (example implementation)
-            function calculateZoomScale(xExtent, yExtent) {
-                // Implement logic to calculate zoom scale based on extents
-                // This is a placeholder function and needs to be defined based on specific requirements
-                return 0.5; // Placeholder return value
-            }
-            
-    // Function to traverse the graph data 
-        function traverse(node, parent = null, index = 0, angleOffset = 0) {
-            console.log("Traversing node:", node);
-            nodes.push(node);
-        if (parent) {links.push({ source: parent.id, target: node.id });
-        }
-        if (node.functions) {
-            const angleStep = 2 * Math.PI / node.functions.length; // Calculate the angle step
-            node.functions.forEach((child, i) => {
-                if (child.type === 'function') { // Check the type of the node
-                    child.x = width / 2 + 0.8 * functionRadius * Math.cos(i * angleStep + angleOffset); // Calculate the x position
-                    child.y = height / 2 + 0.8 * functionRadius * Math.sin(i * angleStep + angleOffset); // Calculate the y position
-                }
-                traverse(child, node, i, i * angleStep);
-            });
-        }
-        if (node.projects) {
-            const angleStep = 2 * Math.PI / node.projects.length;
-            node.projects.forEach((child, i) => {
-                child.x = width / 2 + projectRadius * Math.cos(i * angleStep + angleOffset); // Calculate the x position
-                child.y = height / 2 + projectRadius * Math.sin(i * angleStep + angleOffset); // Calculate the y position
-                traverse(child, node, i, i * angleStep + angleOffset);
-            });
-        }
-        console.log("Node position - X:", node.x, "Y:", node.y);
+        const nodes = [];
+        const links = [];
     
-    }
+        const svg = d3.select(`#${graphId}`).append("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .append("g");
+    
+        function traverse(node, parent = null, index = 0, angleOffset = 0) {
+            nodes.push(node);
+            if (parent) {
+                links.push({ source: parent.id, target: node.id });
+            }
+            if (node.functions) {
+                const angleStep = 2 * Math.PI / node.functions.length;
+                node.functions.forEach((child, i) => {
+                    if (child.type === 'function') {
+                        child.x = width / 2 + 0.8 * functionRadius * Math.cos(i * angleStep + angleOffset);
+                        child.y = height / 2 + 0.8 * functionRadius * Math.sin(i * angleStep + angleOffset);
+                    }
+                    traverse(child, node, i, i * angleStep);
+                });
+            }
+            if (node.projects) {
+                const angleStep = 2 * Math.PI / node.projects.length;
+                node.projects.forEach((child, i) => {
+                    child.x = width / 2 + projectRadius * Math.cos(i * angleStep + angleOffset);
+                    child.y = height / 2 + projectRadius * Math.sin(i * angleStep + angleOffset);
+                    traverse(child, node, i, i * angleStep + angleOffset);
+                });
+            }
+        
+        console.log("Node position - X:", node.x, "Y:", node.y);
+        }
+    
 
     // Traverse the graph data to populate nodes and links
     graphData.forEach(root => traverse(root));
@@ -280,28 +208,6 @@ function renderGraph(graphId, graphData) {
     .delay(d => typeDelays[d.type]) // Apply delay based on the type
     .style("opacity", 1); // Fade in the node
 
-        // Function to debounce the hover action
-        function debounce(func, wait, immediate) {
-            var timeout;
-            return function() {
-                var context = this, args = arguments;
-                var later = function() {
-                    timeout = null;
-                    if (!immediate) func.apply(context, args);
-                };
-                var callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func.apply(context, args);
-            };
-        }
-
-    // Debounced hover function to improve performance
-    // const debouncedShowChildNodes = debounce(function(event, d) {
-    //     if (!d3.select(this).classed("clicked") && d.type !== 'organization' && d.type !== 'function') {
-    //         showChildNodes(d, this);
-    //     }
-    // }, 500); // 50 milliseconds debounce time
 
     // Function to show links connected to a node
     function showLinks(nodeId) {
@@ -344,32 +250,53 @@ function renderGraph(graphId, graphData) {
         showLinks(d.id); // Ensure links remain visible when a node is clicked
         });
 
-    // Function to show child nodes
-    function showChildNodes(d, nodeElement) {
-        const children = d.functions || d.projects || [];
-        children.forEach(child => {
-            const childNode = svg.append("g")
-                .attr("class", "node child-node")
-                .attr("transform", `translate(${child.x}, ${child.y})`)
-                .style("opacity", 0);
+   
+// Function to show child nodes with hyperlink only for project nodes
+function showChildNodes(d, nodeElement) {
+    const children = d.functions || d.projects || [];
+    children.forEach(child => {
+        const childNode = svg.append("g")
+            .attr("class", "node child-node")
+            .attr("transform", `translate(${child.x}, ${child.y})`)
+            .style("opacity", 0);
 
-            childNode.append("circle")
-                .attr("r", 60)
-                .attr("fill", `url(#${child.type})`);
+        if (child.type === 'project' && child.url) {
+            childNode.on("click", () => window.open(child.url, "_blank")); // Open post in new tab
+        }
 
-            childNode.append("text")
-                .attr("class", "node-text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ".35em")
-                .style("font-size", `${svgWidth / 100}px`)
-                .text(child.title);
+        childNode.append("circle")
+            .attr("r", 60)
+            .attr("fill", `url(#${child.type})`);
 
+        childNode.append("text")
+            .attr("class", "node-text")
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em")
+            .style("font-size", `${svgWidth / 100}px`)
+            .text(child.title);
 
-                
-            childNode.transition()
-                .style("opacity", 1);
-        });
-    }
+        childNode.transition()
+            .duration(1000) // Smoother transition
+            .style("opacity", 1);
+    });
+}
+
+// Modify the click event handler for function nodes
+node.filter(d => d.type === 'function')
+    .on("click", function(event, d) {
+        const nodeSelection = d3.select(this);
+        const alreadyClicked = nodeSelection.classed("clicked");
+        svg.selectAll(".node.clicked").classed("clicked", false); // Remove clicked class from all nodes
+        hideChildNodes(); // Hide any previously shown child nodes
+
+        if (!alreadyClicked) {
+            nodeSelection.classed("clicked", true); // Add clicked class to the current node
+            showChildNodes(d, this); // Show child nodes for the current node
+        }
+        event.stopPropagation(); // Prevent the click from triggering any parent elements
+        showLinks(d.id); // Ensure links remain visible when a node is clicked
+    });
+
 
     // Function to hide child nodes
     function hideChildNodes() {
@@ -431,112 +358,131 @@ function renderGraph(graphId, graphData) {
                 node
                     .attr("transform", d => `translate(${d.x}, ${d.y})`);
                 });
+     
+    
+            }
 
-    // // // Sequentially load functions with a delay
-    //  const delay = 2000; // 2 seconds delay
-    //  const functions = svg.selectAll(".function")
-    //     .data(nodes.filter(d => d.type === 'function'));
+    
+ // Function to render the function graph based on the selected function title
+// Declare the renderFunctionGraph function at the top of your script
+function renderFunctionGraph(containerId, data, parentNodeFunction) {
+    // Specify the dimensions of the graph container
+    let width = 0.9 * window.innerWidth;
+    let height = window.innerHeight;
 
-    // functions.enter()
-    //     .append("circle")
-    //     .attr("r", 60)
-    //     .attr("fill", d => color(d.group))
-    //     .attr("cx", d => d.x)
-    //     .attr("cy", d => d.y)
-    //     .style("opacity", 0)
-    //     .transition()
-    //     .delay((_, i) => i * delay)
-    //     .style("opacity", 1);
+    // Select the existing SVG container
+    const svg = d3.select(`#${containerId} svg`);
 
-    // // Zoom and unzoom behavior
-    // svg.transition()
-    //     .duration(750)
-    //     .call(zoom.transform, d3.zoomIdentity); // Zoom in
+    // Clear existing elements
+    svg.selectAll("*").remove();
 
-    // setTimeout(() => {
-    //     svg.transition()
-    //         .duration(750)
-    //         .call(zoom.transform, d3.zoomIdentity.scale(1)); // Unzoom after 2 seconds
-    // }, delay);
+    // Create a force simulation
+    const simulation = d3.forceSimulation()
+        .force("link", d3.forceLink().id(d => d.id))
+        .force("charge", d3.forceManyBody().strength(-100))
+        .force("center", d3.forceCenter(width / 2, height / 2));
 
-    // // Hover/select interaction to display child projects
-    // functions.on("mouseover", function(event, d) {
-    //     // Highlight the selected function
-    //     d3.select(this).attr("stroke", "black").attr("stroke-width", 2);
+    // Filter data to include only nodes with the selected function title
+    const filteredData = data.filter(d => d.function && d.function.toLowerCase() === parentNodeFunction.toLowerCase());
 
-    //     // Display child projects
-    //     const projects = svg.selectAll(".project")
-    //         .data(d.projects || [], d => d.id);
+    console.log("Filtered Data:", filteredData);
+    
+    // Add links to the simulation
+    const links = filteredData.flatMap(d => d.links);
 
-    //     projects.enter()
-    //         .append("circle")
-    //         .attr("r", 30)
-    //         .attr("fill", d => color(d.group))
-    //         .attr("cx", d => d.x)
-    //         .attr("cy", d => d.y)
-    //         .style("opacity", 0)
-    //         .transition()
-    //         .style("opacity", 1);
+    // Add nodes to the simulation
+    const nodes = filteredData.flatMap(d => [d.function, ...d.projects]);
+    simulation.nodes(nodes).on("tick", ticked);
+    simulation.force("link").links(links);
 
-    //     projects.exit().remove();
-    // }).on("mouseout", function() {
-    //     // Remove highlight
-    //     d3.select(this).attr("stroke", null);
+    // Create SVG groups for links and nodes
+    const link = svg.append("g")
+        .selectAll("line")
+        .data(links)
+        .enter()
+        .append("line");
 
-    //     // Remove child projects
-    //     svg.selectAll(".project").remove();
-    // });
+    const node = svg.append("g")
+        .selectAll("circle")
+        .data(nodes)
+        .enter()
+        .append("circle")
+        .attr("r", d => (d.type === "function" ? 20 : 10)) // Adjust radius based on type
+        .attr("fill", d => (d.type === "function" ? "blue" : "green")); // Customize node color based on type
 
-    return { filterAndZoomToFunction };
+    // Add labels to nodes
+    const labels = svg.append("g")
+        .selectAll("text")
+        .data(nodes)
+        .enter()
+        .append("text")
+        .text(d => d.title)
+        .attr("dy", 3); // Adjust label position
 
-        }}
+    // Define the tick function
+    function ticked() {
+        link
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        node
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+
+        labels
+            .attr("x", d => d.x)
+            .attr("y", d => d.y);
+    }
+}
+
+let graphData; // Declare the variable
 
 // Load and visualize notes.json
-d3.json("notes_hierarchical.json")
-    .then(function(data) {
-        console.log("Fetched notes data:", data);
+d3.json("notes_hierarchical.json").then(function(data) {
+    console.log("Fetched notes data:", data);
 
-        // Corrected filtering conditions
-        const graph1Data = data.filter(d => d.graph.startsWith('Graph 1'));
-        const graph2Data = data.filter(d => d.graph.startsWith('Graph 2'));
-        const graph3Data = data.filter(d => d.graph.startsWith('Graph 3'));
+    // Corrected filtering conditions
+    const graph1Data = data.filter(d => d.graph.startsWith('Graph 1'));
+    const graph2Data = data.filter(d => d.graph.startsWith('Graph 2'));
+    const graph3Data = data.filter(d => d.graph.startsWith('Graph 3'));
 
-        console.log("Graph 1 Data:", graph1Data);
-        console.log("Graph 2 Data:", graph2Data);
-        console.log("Graph 3 Data:", graph3Data);
+    console.log("Graph 1 Data:", graph1Data);
+    console.log("Graph 2 Data:", graph2Data);
+    console.log("Graph 3 Data:", graph3Data);
 
-        // Render each graph
-        
+    // Render each graph
+    console.log("Fetched notes data:", data);
+    renderGraph("graph2", data);
+
+    // Update sizes on window resize
+    window.addEventListener('resize', function() {
+        d3.selectAll("svg").remove(); // Clear existing SVGs
         renderGraph("graph2", graph2Data);
-        
+    });
 
-        // Update sizes on window resize
-        window.addEventListener('resize', function() {
-            d3.selectAll("svg").remove(); // Clear existing SVGs
-            
-            renderGraph("graph2", graph2Data);
-            
+    let uniqueFunctions = new Set();
+    data.forEach(org => {
+        org.functions.forEach(func => {
+            uniqueFunctions.add(func.title);
         });
+    });
 
-        const { filterAndZoomToFunction } = renderGraph("graph2", graph2Data);
-        
-        
-        let uniqueFunctions = new Set();
-        data.forEach(org => {
-            org.functions.forEach(func => {
-                uniqueFunctions.add(func.title);
-            });
+    let buttonContainer = document.getElementById('function-buttons');
+    uniqueFunctions.forEach(parentNodeFunction => {
+        let button = document.createElement("button");
+        button.innerText = parentNodeFunction;
+        button.addEventListener("click", () => {
+            console.log("Clicked button for parentNodeFunction:", parentNodeFunction);
+            // Call renderFunctionGraph with the selected parent node's function value
+            renderFunctionGraph("graph2", graph2Data, parentNodeFunction);
         });
+        buttonContainer.appendChild(button);
+    });
     
-        let buttonContainer = document.getElementById('function-buttons');
-        uniqueFunctions.forEach(functionTitle => {
-            let button = document.createElement("button");
-            button.innerText = functionTitle;
-            button.addEventListener("click", () => filterAndZoomToFunction(functionTitle, data));
-            buttonContainer.appendChild(button);
-        });
-    
-        // Zoom in button
+
+    // Zoom in button
     const zoomInButton = document.getElementById('zoom-in');
     if (zoomInButton) {
         zoomInButton.addEventListener('click', function() {
@@ -565,8 +511,4 @@ d3.json("notes_hierarchical.json")
             // Example: svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
         });
     }
-       
-    })
-
-    
-   
+});
